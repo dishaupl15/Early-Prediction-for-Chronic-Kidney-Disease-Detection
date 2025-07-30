@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CKD Prediction - Predict</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .nav-links a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        .prediction-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 2rem auto 0;
+            padding: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">CKD Predict</div>
+            <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="#">About</a>
+                <a href="predict.html">Predict</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+
+        <div class="prediction-form">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #2c3e50;">Enter Patient Parameters</h2>
+            <form id="ckdForm" onsubmit="return false;">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="blood_pressure">Blood Pressure</label>
+                        <input type="number" id="blood_pressure" name="blood_pressure" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="specific_gravity">Specific Gravity</label>
+                        <input type="number" step="0.001" id="specific_gravity" name="specific_gravity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="albumin">Albumin</label>
+                        <input type="number" step="0.1" id="albumin" name="albumin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sugar">Sugar</label>
+                        <input type="number" id="sugar" name="sugar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="red_blood_cells">Red Blood Cells</label>
+                        <select id="red_blood_cells" name="red_blood_cells" required>
+                            <option value="normal">Normal</option>
+                            <option value="abnormal">Abnormal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pus_cell">Pus Cell</label>
+                        <select id="pus_cell" name="pus_cell" required>
+                            <option value="normal">Normal</option>
+                            <option value="abnormal">Abnormal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pus_cell_clumps">Pus Cell Clumps</label>
+                        <select id="pus_cell_clumps" name="pus_cell_clumps" required>
+                            <option value="present">Present</option>
+                            <option value="notpresent">Not Present</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bacteria">Bacteria</label>
+                        <select id="bacteria" name="bacteria" required>
+                            <option value="present">Present</option>
+                            <option value="notpresent">Not Present</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="blood_glucose_random">Blood Glucose Random</label>
+                        <input type="number" id="blood_glucose_random" name="blood_glucose_random" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="blood_urea">Blood Urea</label>
+                        <input type="number" step="0.1" id="blood_urea" name="blood_urea" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serum_ceratinine">Serum Creatinine</label>
+                        <input type="number" step="0.1" id="serum_ceratinine" name="serum_ceratinine" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sodium">Sodium</label>
+                        <input type="number" id="sodium" name="sodium" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="potassium">Potassium</label>
+                        <input type="number" step="0.1" id="potassium" name="potassium" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hemoglobin">Hemoglobin</label>
+                        <input type="number" step="0.1" id="hemoglobin" name="hemoglobin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="packed_cell_volume">Packed Cell Volume</label>
+                        <input type="number" id="packed_cell_volume" name="packed_cell_volume" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="white_blood_cell">White Blood Cell Count</label>
+                        <input type="number" id="white_blood_cell" name="white_blood_cell" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="red_blood_cell">Red Blood Cell Count</label>
+                        <input type="number" step="0.1" id="red_blood_cell" name="red_blood_cell" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hypertension">Hypertension</label>
+                        <select id="hypertension" name="hypertension" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="diabetesmellitus">Diabetes Mellitus</label>
+                        <select id="diabetesmellitus" name="diabetesmellitus" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="coronary_artery_disease">Coronary Artery Disease</label>
+                        <select id="coronary_artery_disease" name="coronary_artery_disease" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="appetite">Appetite</label>
+                        <select id="appetite" name="appetite" required>
+                            <option value="good">Good</option>
+                            <option value="poor">Poor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pedal_adema">Pedal Edema</label>
+                        <select id="pedal_adema" name="pedal_adema" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="anemia">Anemia</label>
+                        <select id="anemia" name="anemia" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="submit-button" onclick="showResult()">Predict</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showResult() {
+            // Validate form
+            const form = document.getElementById('ckdForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            // For demo, randomly determine if positive or negative
+            // In a real app, this would be determined by the model prediction
+            const isPositive = Math.random() > 0.5;
+            
+            // Redirect to result page with appropriate parameter
+            if (isPositive) {
+                window.location.href = 'result.html?result=positive';
+            } else {
+                window.location.href = 'result.html?result=negative';
+            }
+        }
+    </script>
+</body>
+</html>
