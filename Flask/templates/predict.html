@@ -113,7 +113,8 @@
 
         <div class="prediction-form">
             <h2 style="text-align: center; margin-bottom: 2rem; color: #2c3e50;">Enter Patient Parameters</h2>
-            <form id="ckdForm" onsubmit="return false;">
+            <form id="ckdForm" action="/predict" method="POST">
+
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="age">Age</label>
@@ -242,31 +243,33 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="submit-button" onclick="showResult()">Predict</button>
+                <button type="submit" class="submit-button">Predict</button>
+
             </form>
         </div>
     </div>
 
     <script>
-        function showResult() {
-            // Validate form
-            const form = document.getElementById('ckdForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-            
-            // For demo, randomly determine if positive or negative
-            // In a real app, this would be determined by the model prediction
-            const isPositive = Math.random() > 0.5;
-            
-            // Redirect to result page with appropriate parameter
-            if (isPositive) {
-                window.location.href = 'result.html?result=positive';
-            } else {
-                window.location.href = 'result.html?result=negative';
-            }
+    function showResult() {
+        // Validate form
+        const form = document.getElementById('ckdForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
         }
-    </script>
+
+        // For demo, randomly determine if positive or negative
+        // In a real app, this would be determined by the model prediction
+        const isPositive = Math.random() > 0.5;
+
+        // Redirect to result page with appropriate parameter
+        if (isPositive) {
+            window.location.href = 'result.html?result=positive';
+        } else {
+            window.location.href = 'result.html?result=negative';
+        }
+    }
+</script>
+
 </body>
 </html>
