@@ -1,142 +1,324 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CKD Prediction - Home</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CKD Prediction - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-        }
+  <style>
+    :root[data-theme="light"] {
+      --bg-primary: linear-gradient(135deg, #EEF2FF 0%, #E6E9F0 100%);
+      --bg-secondary: white;
+      --text-primary: #1a365d;
+      --text-secondary: #4a5568;
+      --accent-color: #4299e1;
+      --accent-hover: #3182ce;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+    :root[data-theme="dark"] {
+      --bg-primary: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+      --bg-secondary: #2d3748;
+      --text-primary: #f7fafc;
+      --text-secondary: #3a3e44;
+      --accent-color: #63b3ed;
+      --accent-hover: #4299e1;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2c3e50;
-        }
+    body {
+      background: var(--bg-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .nav-links a {
-            margin-left: 2rem;
-            text-decoration: none;
-            color: #2c3e50;
-            transition: color 0.3s;
-        }
+    /* HEADER */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
 
-        .nav-links a:hover {
-            color: #3498db;
-        }
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-        }
+    .nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin-left: auto; /* Pushes it to the right */
+  margin-right: 10px;
+}
 
-        .hero h1 {
-            font-size: 3rem;
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
-        }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #34495e;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 1.05rem;
+      position: relative;
+    }
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
 
-        .cta-button:hover {
-            background-color: #2980b9;
-        }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
 
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 6rem 2rem;
+      position: relative;
+      background: radial-gradient(circle at top right, rgba(66,153,225,0.15), transparent);
+    }
 
-        .feature-card h3 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
+    .hero h1 {
+      font-size: 3.5rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
 
-        .feature-card p {
-            color: #7f8c8d;
-        }
-    </style>
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .cta-button {
+      margin-top: 2rem;
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--accent-color);
+      color: white;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    /* STATS SECTION */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat h2 {
+      font-size: 2rem;
+      color: var(--accent-color);
+    }
+
+    .stat p {
+      color: var(--text-secondary);
+    }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 5rem;
+      padding: 0 2rem;
+    }
+
+    .feature-card {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .footer-section a, .footer-section p {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <nav>
-            <div class="logo">CKD Predict</div>
-            <div class="nav-links">
-                <a href="home.html">Home</a>
-                <a href="#">About</a>
-                <a href="{{ url_for('predict') }}">Predict</a>
-                <a href="#">Contact</a>
-            </div>
-        </nav>
 
-        <div class="hero">
-            <h1>Early Detection Saves Lives</h1>
-            <p>Use our advanced AI-powered tool to predict the risk of Chronic Kidney Disease.<br>Quick, accurate, and easy to use.</p>
-            <a href="{{ url_for('predict') }}" class="cta-button">Start Prediction</a>
+  <nav>
+    <div class="logo"><i class="fas fa-heartbeat"></i> CKD Predict</div>
+    <ul class="nav-links">
+      <li><a href="/" class="active">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="{{ url_for('predict') }}">Predict</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+  </nav>
 
-        </div>
+  <section class="hero">
+    <h1>Early Detection Saves Lives</h1>
+    <p>Use our AI-powered tool to predict the risk of Chronic Kidney Disease. Quick, accurate, and easy to use.</p>
+    <a href="{{ url_for('predict') }}" class="cta-button">Start Prediction</a>
 
-        <div class="features">
-            <div class="feature-card">
-                <h3>Accurate Prediction</h3>
-                <p>Advanced machine learning algorithms for reliable results</p>
-            </div>
-            <div class="feature-card">
-                <h3>Easy to Use</h3>
-                <p>Simple interface designed for both patients and healthcare providers</p>
-            </div>
-            <div class="feature-card">
-                <h3>Instant Results</h3>
-                <p>Get your prediction results in seconds</p>
-            </div>
-        </div>
+    <div class="stats">
+      <div class="stat">
+        <h2>98%</h2>
+        <p>Accuracy Rate</p>
+      </div>
+      <div class="stat">
+        <h2>5K+</h2>
+        <p>Predictions Made</p>
+      </div>
+      <div class="stat">
+        <h2>24/7</h2>
+        <p>Available Support</p>
+      </div>
     </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <i class="fas fa-chart-line"></i>
+      <h3>Accurate Prediction</h3>
+      <p>Advanced machine learning algorithms with high accuracy.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-user-check"></i>
+      <h3>Easy to Use</h3>
+      <p>Intuitive interface designed for both patients and healthcare providers.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-bolt"></i>
+      <h3>Instant Results</h3>
+      <p>Get comprehensive results in seconds with detailed analysis.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>We are dedicated to providing accurate and reliable kidney disease prediction using AI.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p><i class="fas fa-envelope"></i> contact@ckdpredict.com</p>
+        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2024 CKD Predict. All rights reserved.</div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeToggle = document.querySelector('.theme-toggle i');
+      if (html.getAttribute('data-theme') === 'light') {
+        html.setAttribute('data-theme', 'dark');
+        themeToggle.className = 'fas fa-sun';
+      } else {
+        html.setAttribute('data-theme', 'light');
+        themeToggle.className = 'fas fa-moon';
+      }
+    }
+  </script>
+
 </body>
 </html>

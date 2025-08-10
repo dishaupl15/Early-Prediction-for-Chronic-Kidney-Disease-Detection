@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - CKD Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    /* Same theme variables as home.html */
+    :root[data-theme="light"] {
+      --bg-primary: linear-gradient(135deg, #EEF2FF 0%, #E6E9F0 100%);
+      --bg-secondary: white;
+      --text-primary: #1a365d;
+      --text-secondary: #4a5568;
+      --accent-color: #4299e1;
+      --accent-hover: #3182ce;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+    :root[data-theme="dark"] {
+      --bg-primary: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+      --bg-secondary: #2d3748;
+      --text-primary: #f7fafc;
+      --text-secondary: #e2e8f0;
+      --accent-color: #63b3ed;
+      --accent-hover: #4299e1;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body {
+      background: var(--bg-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* HEADER */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      position: sticky; top: 0;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+    nav .logo {
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--accent-color);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+      margin-left: auto; margin-right: 10px;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--text-secondary);
+      font-weight: 500; font-size: 1.05rem;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: -5px;
+      width: 0; height: 2px; background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .theme-toggle {
+      background: none; border: none; font-size: 1.5rem;
+      color: var(--text-primary); cursor: pointer;
+    }
+    /* CONTACT FORM */
+    .container {
+      background: var(--bg-secondary);
+      max-width: 800px; margin: 3rem auto; padding: 2.5rem;
+      border-radius: 15px; box-shadow: var(--card-shadow);
+    }
+    h2 {
+      text-align: center; margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+    form {
+      display: grid; gap: 1.5rem;
+    }
+    label {
+      font-weight: 500; color: var(--text-primary);
+    }
+    input[type="text"], input[type="email"], textarea {
+      padding: 0.8rem; width: 100%;
+      border: 1px solid #ccc; border-radius: 8px;
+      background: transparent; color: var(--text-primary);
+    }
+    textarea { height: 120px; resize: vertical; }
+    input[type="submit"] {
+      background: var(--accent-color); color: white;
+      border: none; padding: 0.9rem; cursor: pointer;
+      border-radius: 8px; font-size: 1rem; font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    input[type="submit"]:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    .info {
+      margin-top: 2rem; text-align: center;
+      color: var(--text-secondary);
+    }
+    .info p { margin: 0.5rem 0; }
+    /* FOOTER */
+    footer {
+      background: var(--bg-secondary);
+      padding: 2rem; margin-top: auto;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    .footer-content {
+      display: flex; justify-content: space-between; flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .footer-section h4 {
+      margin-bottom: 1rem; color: var(--text-primary);
+    }
+    .footer-section a, .footer-section p {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 0.95rem; margin-bottom: 0.5rem; display: block;
+    }
+    .footer-bottom {
+      text-align: center; padding-top: 1rem; font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <nav>
+    <div class="logo"><i class="fas fa-heartbeat"></i> CKD Predict</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="{{ url_for('predict') }}">Predict</a></li>
+      <li><a href="/contact" class="active">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+  </nav>
+
+  <!-- CONTACT FORM -->
+  <div class="container">
+    <h2>Get in Touch</h2>
+    <form action="#" method="POST">
+      <div>
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div>
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <input type="submit" value="Send Message">
+    </form>
+
+    <div class="info">
+      <p><strong>Address:</strong> Your Institute or Project Team Address</p>
+      <p><strong>Email:</strong> yourteam@example.com</p>
+      <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>We are dedicated to providing accurate and reliable kidney disease prediction using AI.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p><i class="fas fa-envelope"></i> contact@ckdpredict.com</p>
+        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 CKD Predict. All rights reserved.</div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeToggle = document.querySelector('.theme-toggle i');
+      if (html.getAttribute('data-theme') === 'light') {
+        html.setAttribute('data-theme', 'dark');
+        themeToggle.className = 'fas fa-sun';
+      } else {
+        html.setAttribute('data-theme', 'light');
+        themeToggle.className = 'fas fa-moon';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About - CKD Prediction</title>
+    <link rel="stylesheet" href="../static/about.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+    <div class="logo"><i class="fas fa-heartbeat"></i> CKD Predict</div>
+    <ul class="nav-links">
+      <li><a href="/" class="active">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="{{ url_for('predict') }}">Predict</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+  </nav>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <h1>About CKD Predict</h1>
+            <p class="intro">
+                CKD Predict is an intelligent tool designed to help users detect the risk of Chronic Kidney Disease (CKD) using machine learning technology. Our goal is to empower individuals with early awareness and proactive healthcare decisions.
+            </p>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <i class="fas fa-microscope"></i>
+                    <h3>How It Works</h3>
+                    <p>
+                        Our model analyzes multiple health parameters like blood pressure, serum creatinine, and more to predict CKD. It’s trained on real medical datasets to ensure high accuracy.
+                    </p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Why It Matters</h3>
+                    <p>
+                        CKD often shows no early symptoms. Early prediction can help you take timely actions, improve treatment outcomes, and potentially save lives.
+                    </p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Your Data is Safe</h3>
+                    <p>
+                        We value privacy. All health inputs are used solely for prediction and are not stored or shared. Your trust is our priority.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 CKD Predict. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+
+</body>
+</html>
